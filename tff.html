@@ -1,0 +1,1134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Saumya Tiffin Service</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --gold:#C8973A;--gold-light:#E8B84B;--gold-dark:#9B7228;
+  --brown:#3D1F0D;--brown-mid:#6B3A1F;--brown-light:#8B5A2B;
+  --cream:#FDF6EC;--cream-dark:#F5E6CC;--cream-mid:#EDD9B3;
+  --orange:#D4621A;--orange-light:#E8833D;
+  --text-dark:#2C1810;--text-mid:#5C3D2A;--text-light:#8B6B52;
+  --white:#FFFFFF;--shadow:0 8px 32px rgba(61,31,13,0.15);
+  --shadow-lg:0 16px 48px rgba(61,31,13,0.2);
+  --radius:12px;--radius-lg:20px;--radius-xl:32px;
+}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text-dark);overflow-x:hidden}
+h1,h2,h3,.brand{font-family:'Playfair Display',serif}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(61,31,13,0.95);backdrop-filter:blur(20px);border-bottom:1px solid rgba(200,151,58,0.3);padding:0 24px;height:68px;display:flex;align-items:center;justify-content:space-between}
+.brand{color:var(--gold-light);font-size:22px;font-weight:700;letter-spacing:0.5px;cursor:pointer}
+.brand span{color:var(--cream);font-style:italic;font-size:13px;display:block;font-family:'DM Sans',sans-serif;font-weight:300;letter-spacing:2px}
+.nav-links{display:flex;gap:8px;align-items:center}
+.nav-link{color:var(--cream-mid);font-size:14px;font-weight:400;padding:8px 14px;border-radius:8px;cursor:pointer;transition:all 0.2s;background:none;border:none}
+.nav-link:hover,.nav-link.active{color:var(--gold-light);background:rgba(200,151,58,0.15)}
+.nav-btn{background:var(--gold);color:var(--brown);font-size:13px;font-weight:600;padding:9px 20px;border-radius:8px;cursor:pointer;border:none;transition:all 0.2s}
+.nav-btn:hover{background:var(--gold-light)}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px}
+.hamburger span{width:24px;height:2px;background:var(--cream);border-radius:2px;transition:all 0.3s}
+
+/* PAGES */
+.page{display:none;min-height:100vh;padding-top:68px}
+.page.active{display:block}
+
+/* HERO */
+.hero{background:linear-gradient(135deg,var(--brown) 0%,var(--brown-mid) 50%,#4A2010 100%);min-height:92vh;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;padding:40px 24px}
+.hero-bg{position:absolute;inset:0;opacity:0.06}
+.hero-bg-pattern{width:100%;height:100%;background-image:repeating-linear-gradient(45deg,var(--gold) 0,var(--gold) 1px,transparent 0,transparent 50%);background-size:30px 30px}
+.hero-content{position:relative;z-index:2;text-align:center;max-width:800px}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(200,151,58,0.2);border:1px solid rgba(200,151,58,0.4);border-radius:50px;padding:6px 16px;margin-bottom:24px}
+.hero-badge span{color:var(--gold-light);font-size:13px;font-weight:500;letter-spacing:1px}
+.hero h1{font-size:clamp(32px,6vw,64px);color:var(--cream);line-height:1.15;margin-bottom:12px;font-weight:700}
+.hero h1 em{color:var(--gold-light);font-style:normal}
+.hero-sub{color:var(--cream-mid);font-size:clamp(14px,2vw,18px);font-weight:300;margin-bottom:36px;line-height:1.7;max-width:560px;margin-left:auto;margin-right:auto}
+.hero-buttons{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+.btn-primary{background:var(--gold);color:var(--brown);font-size:15px;font-weight:600;padding:14px 32px;border-radius:50px;border:none;cursor:pointer;transition:all 0.25s;font-family:'DM Sans',sans-serif}
+.btn-primary:hover{background:var(--gold-light);transform:translateY(-2px);box-shadow:0 8px 24px rgba(200,151,58,0.4)}
+.btn-outline{background:transparent;color:var(--cream);font-size:15px;font-weight:500;padding:14px 32px;border-radius:50px;border:1.5px solid rgba(253,246,236,0.5);cursor:pointer;transition:all 0.25s;font-family:'DM Sans',sans-serif}
+.btn-outline:hover{border-color:var(--cream);background:rgba(253,246,236,0.1)}
+.hero-stats{display:flex;gap:48px;justify-content:center;margin-top:60px;flex-wrap:wrap}
+.hero-stat{text-align:center}
+.hero-stat .num{font-family:'Playfair Display',serif;font-size:36px;color:var(--gold-light);font-weight:700;line-height:1}
+.hero-stat .lbl{color:var(--cream-mid);font-size:13px;font-weight:300;margin-top:4px}
+
+/* FOOD EMOJI FLOATING */
+.food-floats{position:absolute;inset:0;pointer-events:none;z-index:1}
+.food-float{position:absolute;font-size:clamp(24px,4vw,48px);opacity:0.15;animation:float 6s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(0) rotate(-5deg)}50%{transform:translateY(-20px) rotate(5deg)}}
+
+/* SECTIONS */
+.section{padding:80px 24px}
+.section-inner{max-width:1100px;margin:0 auto}
+.section-label{display:inline-block;color:var(--gold-dark);font-size:12px;font-weight:600;letter-spacing:3px;text-transform:uppercase;margin-bottom:12px}
+.section-title{font-size:clamp(26px,4vw,40px);color:var(--brown);line-height:1.2;margin-bottom:16px}
+.section-sub{color:var(--text-light);font-size:16px;line-height:1.7;max-width:560px}
+
+/* MENU CARDS */
+.menu-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px;margin-top:48px}
+.menu-card{background:var(--white);border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow);transition:all 0.3s;cursor:pointer;border:1px solid rgba(200,151,58,0.1)}
+.menu-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg)}
+.menu-card-img{height:180px;background:linear-gradient(135deg,var(--cream-dark),var(--cream-mid));display:flex;align-items:center;justify-content:center;font-size:72px;position:relative;overflow:hidden}
+.menu-card-img::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,transparent 50%,rgba(61,31,13,0.1))}
+.menu-card-badge{position:absolute;top:12px;right:12px;background:var(--gold);color:var(--brown);font-size:11px;font-weight:600;padding:4px 10px;border-radius:50px}
+.menu-card-body{padding:20px}
+.menu-card-name{font-family:'Playfair Display',serif;font-size:18px;color:var(--brown);font-weight:600;margin-bottom:6px}
+.menu-card-desc{font-size:13px;color:var(--text-light);line-height:1.6;margin-bottom:16px}
+.menu-card-footer{display:flex;align-items:center;justify-content:space-between}
+.menu-price{font-size:20px;font-weight:600;color:var(--orange);font-family:'Playfair Display',serif}
+.menu-price span{font-size:12px;color:var(--text-light);font-family:'DM Sans',sans-serif;font-weight:400}
+.add-btn{background:var(--brown);color:var(--cream);border:none;padding:8px 18px;border-radius:50px;font-size:13px;font-weight:500;cursor:pointer;transition:all 0.2s;font-family:'DM Sans',sans-serif}
+.add-btn:hover{background:var(--gold);color:var(--brown)}
+
+/* PLANS */
+.plans-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:24px;margin-top:48px}
+.plan-card{background:var(--white);border-radius:var(--radius-lg);padding:32px 24px;box-shadow:var(--shadow);border:2px solid transparent;transition:all 0.3s;position:relative;overflow:hidden}
+.plan-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:var(--cream-mid)}
+.plan-card.featured{border-color:var(--gold);transform:scale(1.03)}
+.plan-card.featured::before{background:linear-gradient(90deg,var(--gold),var(--orange))}
+.plan-popular{position:absolute;top:20px;right:20px;background:var(--gold);color:var(--brown);font-size:11px;font-weight:600;padding:4px 10px;border-radius:50px}
+.plan-name{font-family:'Playfair Display',serif;font-size:20px;color:var(--brown);font-weight:700;margin-bottom:8px}
+.plan-price{display:flex;align-items:baseline;gap:4px;margin:20px 0}
+.plan-price .amt{font-family:'Playfair Display',serif;font-size:40px;color:var(--orange);font-weight:700;line-height:1}
+.plan-price .per{font-size:13px;color:var(--text-light)}
+.plan-perks{list-style:none;margin:20px 0 28px}
+.plan-perks li{font-size:14px;color:var(--text-mid);padding:6px 0;border-bottom:1px solid var(--cream-dark);display:flex;gap:8px;align-items:center}
+.plan-perks li:last-child{border-bottom:none}
+.plan-perks li::before{content:'✓';color:var(--gold);font-weight:700;font-size:14px;flex-shrink:0}
+.plan-btn{width:100%;background:var(--brown);color:var(--cream);border:none;padding:13px;border-radius:50px;font-size:14px;font-weight:500;cursor:pointer;transition:all 0.2s;font-family:'DM Sans',sans-serif}
+.plan-btn:hover{background:var(--gold);color:var(--brown)}
+.plan-card.featured .plan-btn{background:var(--gold);color:var(--brown)}
+.plan-card.featured .plan-btn:hover{background:var(--gold-light)}
+
+/* WHY US */
+.why-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:24px;margin-top:48px}
+.why-card{text-align:center;padding:32px 20px;background:var(--white);border-radius:var(--radius-lg);box-shadow:var(--shadow)}
+.why-icon{font-size:40px;margin-bottom:16px;display:block}
+.why-title{font-family:'Playfair Display',serif;font-size:17px;color:var(--brown);font-weight:600;margin-bottom:8px}
+.why-desc{font-size:13px;color:var(--text-light);line-height:1.7}
+
+/* TESTIMONIALS */
+.testi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;margin-top:48px}
+.testi-card{background:var(--white);border-radius:var(--radius-lg);padding:28px;box-shadow:var(--shadow);border-left:4px solid var(--gold)}
+.testi-text{font-size:15px;color:var(--text-mid);line-height:1.8;font-style:italic;margin-bottom:20px}
+.testi-author{display:flex;align-items:center;gap:12px}
+.testi-avatar{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--orange));display:flex;align-items:center;justify-content:center;color:var(--brown);font-weight:700;font-size:16px;font-family:'Playfair Display',serif}
+.testi-name{font-weight:600;font-size:14px;color:var(--brown)}
+.testi-loc{font-size:12px;color:var(--text-light)}
+.stars{color:var(--gold);font-size:13px;margin-bottom:16px}
+
+/* ORDER CUTOFF BANNER */
+.cutoff-banner{background:linear-gradient(135deg,var(--brown),var(--brown-mid));border-radius:var(--radius);padding:20px 24px;margin:24px 0;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.cutoff-info{flex:1}
+.cutoff-title{color:var(--gold-light);font-family:'Playfair Display',serif;font-size:16px;font-weight:600;margin-bottom:4px}
+.cutoff-desc{color:var(--cream-mid);font-size:13px}
+.cutoff-status{padding:8px 16px;border-radius:50px;font-size:13px;font-weight:600}
+.cutoff-open{background:rgba(100,180,100,0.2);color:#6FCF97;border:1px solid rgba(100,180,100,0.4)}
+.cutoff-closed{background:rgba(220,80,80,0.2);color:#EB5757;border:1px solid rgba(220,80,80,0.4)}
+
+/* FORM STYLES */
+.form-group{margin-bottom:20px}
+.form-label{display:block;font-size:13px;font-weight:500;color:var(--text-mid);margin-bottom:8px;letter-spacing:0.3px}
+.form-input{width:100%;padding:12px 16px;border:1.5px solid var(--cream-dark);border-radius:var(--radius);font-size:15px;color:var(--text-dark);background:var(--white);font-family:'DM Sans',sans-serif;transition:border-color 0.2s;outline:none}
+.form-input:focus{border-color:var(--gold)}
+.form-select{width:100%;padding:12px 16px;border:1.5px solid var(--cream-dark);border-radius:var(--radius);font-size:15px;color:var(--text-dark);background:var(--white);font-family:'DM Sans',sans-serif;outline:none;cursor:pointer}
+.form-select:focus{border-color:var(--gold)}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+
+/* AUTH PAGE */
+.auth-page{background:linear-gradient(135deg,var(--brown) 0%,var(--brown-mid) 100%);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:40px 24px;padding-top:108px}
+.auth-card{background:var(--white);border-radius:var(--radius-xl);padding:48px;max-width:440px;width:100%;box-shadow:var(--shadow-lg)}
+.auth-logo{text-align:center;margin-bottom:32px}
+.auth-logo .brand-big{font-family:'Playfair Display',serif;font-size:28px;color:var(--brown);font-weight:700}
+.auth-logo .brand-sub{font-size:12px;color:var(--text-light);letter-spacing:2px;margin-top:4px}
+.auth-tabs{display:flex;background:var(--cream);border-radius:50px;padding:4px;margin-bottom:32px}
+.auth-tab{flex:1;padding:10px;border-radius:50px;text-align:center;font-size:14px;font-weight:500;cursor:pointer;transition:all 0.2s;border:none;background:none;color:var(--text-mid)}
+.auth-tab.active{background:var(--brown);color:var(--cream)}
+
+/* DASHBOARD */
+.dashboard{background:var(--cream);min-height:100vh;padding-top:88px}
+.dash-header{background:linear-gradient(135deg,var(--brown),var(--brown-mid));padding:40px 24px 60px;position:relative;overflow:hidden}
+.dash-header-inner{max-width:1100px;margin:0 auto;position:relative;z-index:2}
+.dash-greeting{font-family:'Playfair Display',serif;font-size:28px;color:var(--cream);font-weight:700;margin-bottom:4px}
+.dash-sub{color:var(--cream-mid);font-size:15px}
+.dash-bg-pat{position:absolute;inset:0;opacity:0.04;background-image:repeating-linear-gradient(45deg,var(--gold) 0,var(--gold) 1px,transparent 0,transparent 50%);background-size:20px 20px}
+.dash-body{max-width:1100px;margin:-32px auto 0;padding:0 24px 60px;position:relative;z-index:3}
+.dash-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-bottom:32px}
+.dash-card{background:var(--white);border-radius:var(--radius-lg);padding:24px;box-shadow:var(--shadow)}
+.dash-card-label{font-size:12px;color:var(--text-light);font-weight:500;letter-spacing:0.5px;margin-bottom:8px}
+.dash-card-value{font-family:'Playfair Display',serif;font-size:28px;color:var(--brown);font-weight:700}
+.dash-card-sub{font-size:12px;color:var(--gold-dark);margin-top:4px}
+.dash-grid{display:grid;grid-template-columns:2fr 1fr;gap:24px}
+.dash-panel{background:var(--white);border-radius:var(--radius-lg);padding:24px;box-shadow:var(--shadow)}
+.dash-panel-title{font-family:'Playfair Display',serif;font-size:18px;color:var(--brown);font-weight:600;margin-bottom:20px;padding-bottom:12px;border-bottom:2px solid var(--cream-dark)}
+.order-item{display:flex;align-items:center;gap:16px;padding:14px 0;border-bottom:1px solid var(--cream-dark)}
+.order-item:last-child{border-bottom:none}
+.order-emoji{font-size:28px;width:48px;height:48px;background:var(--cream);border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.order-info{flex:1}
+.order-name{font-size:14px;font-weight:500;color:var(--text-dark)}
+.order-date{font-size:12px;color:var(--text-light);margin-top:2px}
+.order-status{font-size:11px;font-weight:600;padding:4px 10px;border-radius:50px}
+.status-delivered{background:rgba(100,180,100,0.15);color:#27AE60}
+.status-pending{background:rgba(255,180,0,0.15);color:#F2994A}
+.status-active{background:rgba(200,151,58,0.15);color:var(--gold-dark)}
+.sub-info{background:linear-gradient(135deg,var(--brown),var(--brown-mid));border-radius:var(--radius);padding:20px;color:var(--cream);margin-bottom:16px}
+.sub-name{font-family:'Playfair Display',serif;font-size:18px;color:var(--gold-light);font-weight:600;margin-bottom:6px}
+.sub-detail{font-size:13px;color:var(--cream-mid);line-height:1.8}
+.sub-actions{display:flex;gap:12px;margin-top:16px;flex-wrap:wrap}
+.sub-action-btn{flex:1;min-width:80px;padding:10px;border-radius:50px;font-size:12px;font-weight:500;cursor:pointer;border:1px solid rgba(200,151,58,0.5);background:rgba(200,151,58,0.15);color:var(--gold-light);font-family:'DM Sans',sans-serif;transition:all 0.2s;text-align:center}
+.sub-action-btn:hover{background:rgba(200,151,58,0.3)}
+
+/* ADMIN */
+.admin-layout{display:grid;grid-template-columns:240px 1fr;min-height:calc(100vh - 68px)}
+.admin-sidebar{background:var(--brown);padding:24px 0}
+.admin-nav-item{display:flex;align-items:center;gap:12px;padding:12px 24px;color:var(--cream-mid);font-size:14px;cursor:pointer;transition:all 0.2s;border-left:3px solid transparent}
+.admin-nav-item:hover,.admin-nav-item.active{background:rgba(200,151,58,0.15);color:var(--gold-light);border-left-color:var(--gold)}
+.admin-nav-icon{font-size:18px;width:20px;text-align:center}
+.admin-main{background:var(--cream-dark);padding:32px}
+.admin-title{font-family:'Playfair Display',serif;font-size:28px;color:var(--brown);font-weight:700;margin-bottom:24px}
+.admin-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin-bottom:32px}
+.admin-stat{background:var(--white);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);border-top:3px solid var(--gold)}
+.admin-stat-num{font-family:'Playfair Display',serif;font-size:32px;color:var(--brown);font-weight:700}
+.admin-stat-label{font-size:12px;color:var(--text-light);margin-top:4px}
+.admin-table{background:var(--white);border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow)}
+.admin-table-header{display:grid;grid-template-columns:2fr 1fr 1fr 1fr 100px;padding:14px 20px;background:var(--brown);color:var(--cream-mid);font-size:12px;font-weight:500;letter-spacing:0.5px}
+.admin-table-row{display:grid;grid-template-columns:2fr 1fr 1fr 1fr 100px;padding:14px 20px;border-bottom:1px solid var(--cream-dark);align-items:center;font-size:13px;transition:background 0.15s}
+.admin-table-row:hover{background:var(--cream)}
+.admin-table-row:last-child{border-bottom:none}
+.badge{padding:4px 10px;border-radius:50px;font-size:11px;font-weight:600}
+.badge-active{background:rgba(100,180,100,0.15);color:#27AE60}
+.badge-paused{background:rgba(255,180,0,0.15);color:#F2994A}
+.badge-gold{background:rgba(200,151,58,0.15);color:var(--gold-dark)}
+.action-dot{width:28px;height:28px;border-radius:50%;border:none;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;font-size:14px;transition:all 0.2s;margin:0 2px}
+.action-dot.edit{background:rgba(200,151,58,0.15);color:var(--gold-dark)}
+.action-dot.del{background:rgba(220,80,80,0.1);color:#EB5757}
+
+/* CHECKOUT */
+.checkout-layout{display:grid;grid-template-columns:1fr 380px;gap:32px;max-width:1100px;margin:0 auto;padding:40px 24px}
+.checkout-panel{background:var(--white);border-radius:var(--radius-lg);padding:32px;box-shadow:var(--shadow)}
+.checkout-title{font-family:'Playfair Display',serif;font-size:22px;color:var(--brown);font-weight:600;margin-bottom:24px;padding-bottom:16px;border-bottom:2px solid var(--cream-dark)}
+.order-summary-item{display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--cream-dark);font-size:14px}
+.order-summary-item:last-child{border-bottom:none}
+.order-total{display:flex;justify-content:space-between;padding:16px 0;font-weight:600;font-size:18px;border-top:2px solid var(--cream-dark);margin-top:8px}
+.payment-options{display:grid;gap:12px;margin-bottom:24px}
+.payment-opt{border:1.5px solid var(--cream-dark);border-radius:var(--radius);padding:14px 16px;cursor:pointer;transition:all 0.2s;display:flex;align-items:center;gap:12px}
+.payment-opt.selected{border-color:var(--gold);background:rgba(200,151,58,0.05)}
+.payment-opt input[type=radio]{accent-color:var(--gold)}
+
+/* CONTACT */
+.contact-layout{display:grid;grid-template-columns:1fr 1fr;gap:48px;max-width:1100px;margin:0 auto;padding:80px 24px;align-items:start}
+.contact-info h2{font-size:36px;color:var(--brown);margin-bottom:16px}
+.contact-detail{display:flex;align-items:flex-start;gap:16px;margin:24px 0}
+.contact-icon{width:44px;height:44px;background:var(--cream-dark);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.contact-text h4{font-size:14px;font-weight:600;color:var(--brown);margin-bottom:4px}
+.contact-text p{font-size:14px;color:var(--text-light);line-height:1.6}
+
+/* ABOUT */
+.about-hero{background:linear-gradient(135deg,var(--brown),var(--brown-mid));padding:100px 24px 80px;text-align:center}
+.about-hero h1{font-family:'Playfair Display',serif;font-size:clamp(32px,5vw,56px);color:var(--cream);margin-bottom:16px}
+.about-hero p{color:var(--cream-mid);font-size:18px;max-width:560px;margin:0 auto;line-height:1.7}
+.about-story{display:grid;grid-template-columns:1fr 1fr;gap:48px;max-width:1100px;margin:0 auto;padding:80px 24px;align-items:center}
+.about-img{background:linear-gradient(135deg,var(--cream-dark),var(--cream-mid));border-radius:var(--radius-xl);height:400px;display:flex;align-items:center;justify-content:center;font-size:120px}
+.about-text h2{font-size:32px;color:var(--brown);margin-bottom:16px}
+.about-text p{color:var(--text-mid);font-size:15px;line-height:1.8;margin-bottom:16px}
+.team-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:24px;margin-top:48px}
+.team-card{background:var(--white);border-radius:var(--radius-lg);padding:28px 20px;text-align:center;box-shadow:var(--shadow)}
+.team-avatar{width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--orange));display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:700;color:var(--brown);font-family:'Playfair Display',serif;margin:0 auto 16px}
+.team-name{font-family:'Playfair Display',serif;font-size:18px;color:var(--brown);font-weight:600;margin-bottom:4px}
+.team-role{font-size:12px;color:var(--text-light);letter-spacing:1px}
+
+/* TOAST */
+.toast{position:fixed;bottom:100px;right:24px;background:var(--brown);color:var(--cream);padding:14px 20px;border-radius:12px;font-size:14px;font-weight:500;box-shadow:var(--shadow-lg);z-index:9999;transform:translateX(200%);transition:transform 0.4s cubic-bezier(0.34,1.56,0.64,1);display:flex;align-items:center;gap:10px;max-width:300px}
+.toast.show{transform:translateX(0)}
+.toast-icon{font-size:18px}
+
+/* WHATSAPP */
+.whatsapp-fab{position:fixed;bottom:24px;right:24px;z-index:999;background:#25D366;color:white;width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:28px;box-shadow:0 4px 20px rgba(37,211,102,0.4);cursor:pointer;transition:all 0.2s;border:none;text-decoration:none}
+.whatsapp-fab:hover{transform:scale(1.1);box-shadow:0 6px 28px rgba(37,211,102,0.5)}
+
+/* FAQ */
+.faq-list{max-width:760px;margin:48px auto 0}
+.faq-item{background:var(--white);border-radius:var(--radius);margin-bottom:12px;overflow:hidden;box-shadow:var(--shadow)}
+.faq-q{padding:20px 24px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-size:15px;font-weight:500;color:var(--brown);transition:background 0.2s}
+.faq-q:hover{background:var(--cream)}
+.faq-q .arrow{font-size:18px;transition:transform 0.3s;color:var(--gold)}
+.faq-a{padding:0 24px;max-height:0;overflow:hidden;transition:all 0.3s;font-size:14px;color:var(--text-mid);line-height:1.8}
+.faq-item.open .faq-a{max-height:200px;padding:0 24px 20px}
+.faq-item.open .faq-q .arrow{transform:rotate(180deg)}
+
+/* BG SECTIONS */
+.section-dark{background:linear-gradient(135deg,var(--brown),var(--brown-mid))}
+.section-dark .section-label{color:var(--gold)}
+.section-dark .section-title{color:var(--cream)}
+.section-dark .section-sub{color:var(--cream-mid)}
+.section-cream{background:var(--cream-dark)}
+
+/* FOOTER */
+footer{background:var(--brown);color:var(--cream-mid);padding:60px 24px 32px}
+.footer-inner{max-width:1100px;margin:0 auto}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;margin-bottom:48px}
+.footer-brand{font-family:'Playfair Display',serif;font-size:24px;color:var(--gold-light);font-weight:700;margin-bottom:12px}
+.footer-desc{font-size:14px;line-height:1.8;color:var(--cream-mid)}
+.footer-col h4{color:var(--cream);font-size:14px;font-weight:600;margin-bottom:16px;letter-spacing:0.5px}
+.footer-links{list-style:none}
+.footer-links li{margin-bottom:10px}
+.footer-links li a,.footer-link{color:var(--cream-mid);font-size:13px;cursor:pointer;text-decoration:none;transition:color 0.2s}
+.footer-links li a:hover,.footer-link:hover{color:var(--gold-light)}
+.footer-bottom{border-top:1px solid rgba(200,151,58,0.2);padding-top:24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:gap;font-size:13px;flex-wrap:wrap;gap:12px}
+.footer-copy{color:var(--text-light)}
+
+/* MOBILE */
+@media(max-width:768px){
+  .nav-links{display:none;position:absolute;top:68px;left:0;right:0;background:var(--brown);flex-direction:column;padding:16px;gap:4px}
+  .nav-links.open{display:flex}
+  .nav-links .nav-link{width:100%}
+  .hamburger{display:flex}
+  .footer-grid{grid-template-columns:1fr 1fr}
+  .about-story,.contact-layout{grid-template-columns:1fr}
+  .checkout-layout{grid-template-columns:1fr}
+  .admin-layout{grid-template-columns:1fr}
+  .admin-sidebar{display:none}
+  .dash-grid{grid-template-columns:1fr}
+  .form-row{grid-template-columns:1fr}
+  .admin-table-header,.admin-table-row{grid-template-columns:2fr 1fr 1fr;font-size:12px}
+  .admin-table-header > *:nth-child(4),.admin-table-row > *:nth-child(4){display:none}
+}
+
+/* ANIMATIONS */
+@keyframes fadeIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.fade-in{animation:fadeIn 0.5s ease forwards}
+
+/* Scrollbar */
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:var(--cream)}
+::-webkit-scrollbar-thumb{background:var(--cream-mid);border-radius:3px}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="mainNav">
+  <div class="brand" onclick="showPage('home')">
+    Saumya Tiffin Service
+    <span>🍛 Ghar Ka Swad</span>
+  </div>
+  <div class="nav-links" id="navLinks">
+    <button class="nav-link active" onclick="showPage('home')">Home</button>
+    <button class="nav-link" onclick="showPage('menu')">Menu</button>
+    <button class="nav-link" onclick="showPage('plans')">Plans</button>
+    <button class="nav-link" onclick="showPage('about')">About</button>
+    <button class="nav-link" onclick="showPage('contact')">Contact</button>
+    <button class="nav-link" onclick="showPage('dashboard')">My Account</button>
+    <button class="nav-link" onclick="showPage('admin')">Admin</button>
+    <button class="nav-btn" onclick="showPage('auth')">Login / Sign Up</button>
+  </div>
+  <div class="hamburger" id="hamburger" onclick="toggleNav()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- TOAST -->
+<div class="toast" id="toast">
+  <span class="toast-icon" id="toastIcon">✅</span>
+  <span id="toastMsg">Added to cart!</span>
+</div>
+
+<!-- WHATSAPP FAB -->
+<a class="whatsapp-fab" href="https://wa.me/919876543210?text=Hello%20Saumya%20Tiffin%20Service!" target="_blank" title="Chat on WhatsApp">💬</a>
+
+<!-- ===== HOME PAGE ===== -->
+<div class="page active" id="page-home">
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-bg"><div class="hero-bg-pattern"></div></div>
+    <div class="food-floats">
+      <div class="food-float" style="top:15%;left:5%;animation-delay:0s">🍛</div>
+      <div class="food-float" style="top:25%;right:8%;animation-delay:1s">🫓</div>
+      <div class="food-float" style="bottom:20%;left:10%;animation-delay:2s">🥗</div>
+      <div class="food-float" style="bottom:30%;right:5%;animation-delay:0.5s">🍚</div>
+      <div class="food-float" style="top:50%;left:2%;animation-delay:3s">🫙</div>
+      <div class="food-float" style="top:60%;right:2%;animation-delay:1.5s">🥘</div>
+    </div>
+    <div class="hero-content fade-in">
+      <div class="hero-badge">
+        <span>🌟 PURE VEG • FRESHLY MADE • DAILY DELIVERY</span>
+      </div>
+      <h1>Ghar Jaisa Swad,<br><em>Roz Aapke Ghar Tak</em></h1>
+      <p class="hero-sub">Authentic home-style Indian tiffin delivered fresh every day. Made with love, pure ingredients, and the warmth of a mother's kitchen.</p>
+      <div class="hero-buttons">
+        <button class="btn-primary" onclick="showPage('menu')">🍽️ Order Now</button>
+        <button class="btn-outline" onclick="showPage('plans')">📋 View Plans</button>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat"><div class="num">2,400+</div><div class="lbl">Happy Families</div></div>
+        <div class="hero-stat"><div class="num">98%</div><div class="lbl">Satisfaction Rate</div></div>
+        <div class="hero-stat"><div class="num">5+ Yrs</div><div class="lbl">Serving Since 2019</div></div>
+        <div class="hero-stat"><div class="num">∞</div><div class="lbl">Love in Every Bite</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TODAY'S MENU -->
+  <div class="section">
+    <div class="section-inner">
+      <div class="section-label">TODAY'S SPECIAL</div>
+      <h2 class="section-title">Today's Menu 🍱</h2>
+      <p class="section-sub">Fresh, seasonal, and made every morning. Today's tiffin includes:</p>
+
+      <!-- ORDER CUTOFF BANNER -->
+      <div class="cutoff-banner">
+        <div class="cutoff-info">
+          <div class="cutoff-title" id="cutoffTitle">Lunch Order Status</div>
+          <div class="cutoff-desc" id="cutoffDesc">Checking order window...</div>
+        </div>
+        <div class="cutoff-status" id="cutoffBadge"></div>
+      </div>
+
+      <div class="menu-grid">
+        <div class="menu-card">
+          <div class="menu-card-img">🫘<div class="menu-card-badge">⭐ Chef's Pick</div></div>
+          <div class="menu-card-body">
+            <div class="menu-card-name">Dal Makhani Thali</div>
+            <div class="menu-card-desc">Rich creamy dal makhani, 4 rotis, steamed rice, seasonal sabji & homemade pickle</div>
+            <div class="menu-card-footer">
+              <div class="menu-price">₹120 <span>/ meal</span></div>
+              <button class="add-btn" onclick="addToCart('Dal Makhani Thali',120)">Add +</button>
+            </div>
+          </div>
+        </div>
+        <div class="menu-card">
+          <div class="menu-card-img">🥘</div>
+          <div class="menu-card-body">
+            <div class="menu-card-name">Rajma Chawal Special</div>
+            <div class="menu-card-desc">Classic Punjabi rajma, steamed rice, raita, papad & sweet (seasonal)</div>
+            <div class="menu-card-footer">
+              <div class="menu-price">₹110 <span>/ meal</span></div>
+              <button class="add-btn" onclick="addToCart('Rajma Chawal Special',110)">Add +</button>
+            </div>
+          </div>
+        </div>
+        <div class="menu-card">
+          <div class="menu-card-img">🫓<div class="menu-card-badge">🥗 Healthy</div></div>
+          <div class="menu-card-body">
+            <div class="menu-card-name">Mixed Veg Thali</div>
+            <div class="menu-card-desc">Paneer or gobi sabji, 4 rotis, dal tadka, salad & homemade chaas</div>
+            <div class="menu-card-footer">
+              <div class="menu-price">₹130 <span>/ meal</span></div>
+              <button class="add-btn" onclick="addToCart('Mixed Veg Thali',130)">Add +</button>
+            </div>
+          </div>
+        </div>
+        <div class="menu-card">
+          <div class="menu-card-img">🍲</div>
+          <div class="menu-card-body">
+            <div class="menu-card-name">Sambar Rice Thali</div>
+            <div class="menu-card-desc">South Indian sambar, steamed rice, coconut chutney, papad & sweet pongal</div>
+            <div class="menu-card-footer">
+              <div class="menu-price">₹100 <span>/ meal</span></div>
+              <button class="add-btn" onclick="addToCart('Sambar Rice Thali',100)">Add +</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WHY US -->
+  <div class="section section-cream">
+    <div class="section-inner" style="text-align:center">
+      <div class="section-label">WHY SAUMYA TIFFIN</div>
+      <h2 class="section-title">Fresh. Healthy. Delivered.</h2>
+      <p class="section-sub" style="margin:0 auto 0">We believe food is love. Every tiffin is packed with care, nutrition, and authentic flavors.</p>
+      <div class="why-grid">
+        <div class="why-card"><span class="why-icon">👩‍🍳</span><div class="why-title">Homemade Quality</div><div class="why-desc">Cooked daily by experienced home chefs using traditional recipes passed down generations</div></div>
+        <div class="why-card"><span class="why-icon">🥬</span><div class="why-title">Fresh Ingredients</div><div class="why-desc">Farm-fresh vegetables sourced daily. No preservatives, no artificial colors ever</div></div>
+        <div class="why-card"><span class="why-icon">⚡</span><div class="why-title">On-Time Delivery</div><div class="why-desc">Lunch by 1 PM, Dinner by 7:30 PM. We respect your schedule every single day</div></div>
+        <div class="why-card"><span class="why-icon">💰</span><div class="why-title">Affordable Plans</div><div class="why-desc">Starting at just ₹99/meal. Save up to 30% on monthly subscriptions</div></div>
+        <div class="why-card"><span class="why-icon">🫧</span><div class="why-title">Hygiene First</div><div class="why-desc">FSSAI certified kitchen. Sealed tiffin boxes. Sanitized delivery process</div></div>
+        <div class="why-card"><span class="why-icon">🔄</span><div class="why-title">Flexible Plans</div><div class="why-desc">Pause, resume, or cancel anytime. Full control over your subscription</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TESTIMONIALS -->
+  <div class="section">
+    <div class="section-inner" style="text-align:center">
+      <div class="section-label">CUSTOMER LOVE</div>
+      <h2 class="section-title">What Our Families Say 💛</h2>
+      <div class="testi-grid" style="margin-top:48px">
+        <div class="testi-card">
+          <div class="stars">★★★★★</div>
+          <div class="testi-text">"Finally found tiffin that tastes just like my mom's cooking! The dal makhani is absolutely incredible. Worth every rupee!"</div>
+          <div class="testi-author"><div class="testi-avatar">P</div><div><div class="testi-name">Priya Sharma</div><div class="testi-loc">Varanasi, UP • Monthly Subscriber</div></div></div>
+        </div>
+        <div class="testi-card">
+          <div class="stars">★★★★★</div>
+          <div class="testi-text">"As a working professional, this has been a lifesaver. Fresh, healthy, and delivered exactly on time. The subscription is so flexible!"</div>
+          <div class="testi-author"><div class="testi-avatar">R</div><div><div class="testi-name">Rahul Mishra</div><div class="testi-loc">Lucknow, UP • Full Day Plan</div></div></div>
+        </div>
+        <div class="testi-card">
+          <div class="stars">★★★★★</div>
+          <div class="testi-text">"My husband used to skip lunch but now he eagerly waits for his Saumya tiffin! The rotis are so soft, just like ghar ka khana."</div>
+          <div class="testi-author"><div class="testi-avatar">A</div><div><div class="testi-name">Anita Verma</div><div class="testi-loc">Gorakhpur, UP • Family Plan</div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <div class="section section-cream">
+    <div class="section-inner" style="text-align:center">
+      <div class="section-label">GOT QUESTIONS?</div>
+      <h2 class="section-title">Frequently Asked Questions</h2>
+      <div class="faq-list">
+        <div class="faq-item" onclick="toggleFaq(this)">
+          <div class="faq-q">Can I pause my subscription? <span class="arrow">▼</span></div>
+          <div class="faq-a">Yes! You can pause your subscription anytime from your dashboard. Just click "Pause Meals" and your subscription will be paused. You can resume whenever you want with no extra charges.</div>
+        </div>
+        <div class="faq-item" onclick="toggleFaq(this)">
+          <div class="faq-q">What is the order cutoff time? <span class="arrow">▼</span></div>
+          <div class="faq-a">Lunch orders must be placed before 7:00 AM. Dinner orders must be placed before 7:00 PM. Orders placed after cutoff will be scheduled for the next day automatically.</div>
+        </div>
+        <div class="faq-item" onclick="toggleFaq(this)">
+          <div class="faq-q">Is the food pure vegetarian? <span class="arrow">▼</span></div>
+          <div class="faq-a">Yes! We are 100% pure vegetarian. Our kitchen is FSSAI certified and we do not use any non-vegetarian ingredients, onion, or garlic in our preparations.</div>
+        </div>
+        <div class="faq-item" onclick="toggleFaq(this)">
+          <div class="faq-q">Can I customize my tiffin? <span class="arrow">▼</span></div>
+          <div class="faq-a">Yes, you can add special instructions for your order. We accommodate dietary restrictions like no spice, diabetic-friendly meals, and jain food on request.</div>
+        </div>
+        <div class="faq-item" onclick="toggleFaq(this)">
+          <div class="faq-q">What areas do you deliver to? <span class="arrow">▼</span></div>
+          <div class="faq-a">We currently deliver to Faizabad, Ayodhya, and surrounding areas. Enter your pincode during checkout to check delivery availability in your area.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== MENU PAGE ===== -->
+<div class="page" id="page-menu">
+  <div class="section" style="background:linear-gradient(135deg,var(--brown),var(--brown-mid));padding:80px 24px 60px">
+    <div class="section-inner" style="text-align:center">
+      <div class="section-label" style="color:var(--gold)">OUR KITCHEN</div>
+      <h2 class="section-title" style="color:var(--cream)">Full Menu 🍽️</h2>
+      <p class="section-sub" style="color:var(--cream-mid);margin:0 auto">Every dish made fresh daily with love and authentic spices</p>
+    </div>
+  </div>
+  <div class="section">
+    <div class="section-inner">
+      <div class="cutoff-banner">
+        <div class="cutoff-info">
+          <div class="cutoff-title" id="cutoffTitle2">Order Window Status</div>
+          <div class="cutoff-desc" id="cutoffDesc2">Checking...</div>
+        </div>
+        <div class="cutoff-status" id="cutoffBadge2"></div>
+      </div>
+
+      <h3 style="font-family:'Playfair Display',serif;font-size:22px;color:var(--brown);margin:32px 0 20px">🌅 Lunch Specials (Deliver by 1 PM)</h3>
+      <div class="menu-grid">
+        <div class="menu-card"><div class="menu-card-img">🫘</div><div class="menu-card-body"><div class="menu-card-name">Dal Makhani Thali</div><div class="menu-card-desc">Dal makhani, 4 rotis, rice, sabji & pickle</div><div class="menu-card-footer"><div class="menu-price">₹120</div><button class="add-btn" onclick="addToCart('Dal Makhani Thali',120)">Add +</button></div></div></div>
+        <div class="menu-card"><div class="menu-card-img">🥘</div><div class="menu-card-body"><div class="menu-card-name">Rajma Chawal</div><div class="menu-card-desc">Rajma masala, rice, raita & papad</div><div class="menu-card-footer"><div class="menu-price">₹110</div><button class="add-btn" onclick="addToCart('Rajma Chawal',110)">Add +</button></div></div></div>
+        <div class="menu-card"><div class="menu-card-img">🌿</div><div class="menu-card-body"><div class="menu-card-name">Palak Paneer Thali</div><div class="menu-card-desc">Palak paneer, 5 rotis, dal, rice & salad</div><div class="menu-card-footer"><div class="menu-price">₹140</div><button class="add-btn" onclick="addToCart('Palak Paneer Thali',140)">Add +</button></div></div></div>
+        <div class="menu-card"><div class="menu-card-img">🍲</div><div class="menu-card-body"><div class="menu-card-name">Sambar Rice Thali</div><div class="menu-card-desc">Sambar, rice, coconut chutney & papad</div><div class="menu-card-footer"><div class="menu-price">₹100</div><button class="add-btn" onclick="addToCart('Sambar Rice Thali',100)">Add +</button></div></div></div>
+      </div>
+
+      <h3 style="font-family:'Playfair Display',serif;font-size:22px;color:var(--brown);margin:40px 0 20px">🌙 Dinner Specials (Deliver by 7:30 PM)</h3>
+      <div class="menu-grid">
+        <div class="menu-card"><div class="menu-card-img">🥗</div><div class="menu-card-body"><div class="menu-card-name">Aloo Matar Thali</div><div class="menu-card-desc">Aloo matar gravy, 4 rotis, khichdi & chaas</div><div class="menu-card-footer"><div class="menu-price">₹110</div><button class="add-btn" onclick="addToCart('Aloo Matar Thali',110)">Add +</button></div></div></div>
+        <div class="menu-card"><div class="menu-card-img">🍛</div><div class="menu-card-body"><div class="menu-card-name">Kadai Paneer Thali</div><div class="menu-card-desc">Kadai paneer, naan, dal fry & sweet dish</div><div class="menu-card-footer"><div class="menu-price">₹150</div><button class="add-btn" onclick="addToCart('Kadai Paneer Thali',150)">Add +</button></div></div></div>
+        <div class="menu-card"><div class="menu-card-img">🫙</div><div class="menu-card-body"><div class="menu-card-name">Chole Bhature</div><div class="menu-card-desc">Punjabi chole, 2 bhature, onion & mint chutney</div><div class="menu-card-footer"><div class="menu-price">₹120</div><button class="add-btn" onclick="addToCart('Chole Bhature',120)">Add +</button></div></div></div>
+        <div class="menu-card"><div class="menu-card-img">🥘</div><div class="menu-card-body"><div class="menu-card-name">Baingan Bharta Thali</div><div class="menu-card-desc">Smoky baingan bharta, rotis, moong dal & raita</div><div class="menu-card-footer"><div class="menu-price">₹100</div><button class="add-btn" onclick="addToCart('Baingan Bharta Thali',100)">Add +</button></div></div></div>
+      </div>
+
+      <div style="text-align:center;margin-top:48px">
+        <button class="btn-primary" onclick="showPage('checkout')">🛒 Proceed to Checkout</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== PLANS PAGE ===== -->
+<div class="page" id="page-plans">
+  <div class="section" style="background:linear-gradient(135deg,var(--brown),var(--brown-mid));padding:80px 24px 60px">
+    <div class="section-inner" style="text-align:center">
+      <div class="section-label" style="color:var(--gold)">SUBSCRIPTION</div>
+      <h2 class="section-title" style="color:var(--cream)">Choose Your Plan 💛</h2>
+      <p class="section-sub" style="color:var(--cream-mid);margin:0 auto">Save more with monthly subscriptions. Cancel anytime, no questions asked.</p>
+    </div>
+  </div>
+  <div class="section">
+    <div class="section-inner">
+      <div class="plans-grid">
+        <div class="plan-card">
+          <div class="plan-name">Basic Lunch Plan</div>
+          <div style="font-size:13px;color:var(--text-light)">Weekdays only • Lunch delivery</div>
+          <div class="plan-price"><span class="amt">₹1,799</span><span class="per">/month</span></div>
+          <ul class="plan-perks">
+            <li>20 lunch tiffins/month</li>
+            <li>Delivery by 1:00 PM</li>
+            <li>Fresh homemade meals</li>
+            <li>Seasonal menu variety</li>
+            <li>Free pausing (up to 5 days)</li>
+          </ul>
+          <button class="plan-btn" onclick="subscribePlan('Basic Lunch Plan',1799)">Subscribe Now</button>
+        </div>
+        <div class="plan-card">
+          <div class="plan-name">Basic Dinner Plan</div>
+          <div style="font-size:13px;color:var(--text-light)">Weekdays only • Dinner delivery</div>
+          <div class="plan-price"><span class="amt">₹1,699</span><span class="per">/month</span></div>
+          <ul class="plan-perks">
+            <li>20 dinner tiffins/month</li>
+            <li>Delivery by 7:30 PM</li>
+            <li>Fresh homemade meals</li>
+            <li>Special weekend menu</li>
+            <li>Free pausing (up to 5 days)</li>
+          </ul>
+          <button class="plan-btn" onclick="subscribePlan('Basic Dinner Plan',1699)">Subscribe Now</button>
+        </div>
+        <div class="plan-card featured">
+          <div class="plan-popular">⭐ Most Popular</div>
+          <div class="plan-name">Full Day Meal Plan</div>
+          <div style="font-size:13px;color:var(--text-light)">Lunch + Dinner • Everyday</div>
+          <div class="plan-price"><span class="amt">₹2,999</span><span class="per">/month</span></div>
+          <ul class="plan-perks">
+            <li>2 meals/day (lunch + dinner)</li>
+            <li>30 days coverage</li>
+            <li>Priority delivery</li>
+            <li>Free customization</li>
+            <li>Pause up to 10 days free</li>
+            <li>Dedicated support</li>
+          </ul>
+          <button class="plan-btn" onclick="subscribePlan('Full Day Meal Plan',2999)">Subscribe Now</button>
+        </div>
+        <div class="plan-card">
+          <div class="plan-name">Monthly Family Plan</div>
+          <div style="font-size:13px;color:var(--text-light)">For 2-4 family members</div>
+          <div class="plan-price"><span class="amt">₹4,999</span><span class="per">/month</span></div>
+          <ul class="plan-perks">
+            <li>Family tiffin (serves 4)</li>
+            <li>Lunch + dinner daily</li>
+            <li>Special weekend dishes</li>
+            <li>Free delivery</li>
+            <li>Festival specials included</li>
+            <li>WhatsApp menu updates</li>
+          </ul>
+          <button class="plan-btn" onclick="subscribePlan('Monthly Family Plan',4999)">Subscribe Now</button>
+        </div>
+      </div>
+
+      <div style="background:var(--cream-dark);border-radius:var(--radius-lg);padding:32px;margin-top:48px;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:24px;text-align:center">
+        <div><div style="font-size:32px;margin-bottom:8px">🔄</div><div style="font-family:'Playfair Display',serif;font-size:16px;color:var(--brown);font-weight:600">Pause Anytime</div><div style="font-size:13px;color:var(--text-light);margin-top:4px">Going on vacation? Pause easily</div></div>
+        <div><div style="font-size:32px;margin-bottom:8px">❌</div><div style="font-family:'Playfair Display',serif;font-size:16px;color:var(--brown);font-weight:600">Cancel Anytime</div><div style="font-size:13px;color:var(--text-light);margin-top:4px">No lock-in, no questions asked</div></div>
+        <div><div style="font-size:32px;margin-bottom:8px">💳</div><div style="font-family:'Playfair Display',serif;font-size:16px;color:var(--brown);font-weight:600">Secure Payment</div><div style="font-size:13px;color:var(--text-light);margin-top:4px">Razorpay secured payments</div></div>
+        <div><div style="font-size:32px;margin-bottom:8px">📱</div><div style="font-family:'Playfair Display',serif;font-size:16px;color:var(--brown);font-weight:600">WhatsApp Updates</div><div style="font-size:13px;color:var(--text-light);margin-top:4px">Daily menu & delivery alerts</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== ABOUT PAGE ===== -->
+<div class="page" id="page-about">
+  <div class="about-hero">
+    <h1>Our Story 🫶</h1>
+    <p>Started with one kitchen, one dream — to bring the warmth of ghar ka khana to every doorstep in the city.</p>
+  </div>
+  <div class="about-story">
+    <div class="about-img">👩‍🍳</div>
+    <div class="about-text">
+      <div style="color:var(--gold-dark);font-size:12px;font-weight:600;letter-spacing:3px;margin-bottom:12px">OUR BEGINNING</div>
+      <h2>From Our Kitchen, <br>With Love Since 2019</h2>
+      <p>Saumya Tiffin Service was born out of a simple desire — to make sure working professionals, students, and families far from home always have access to wholesome, homemade food.</p>
+      <p>Our founder, Smt. Saumya Devi, started cooking in her small kitchen for 5 families in 2019. Today, we serve over 2,400 happy families across the region, but our heart remains the same — every meal is cooked with the love of a mother.</p>
+      <p>We use only the freshest vegetables sourced from local farms, traditional spices, and recipes passed down through generations. No shortcuts. No compromises. Just pure ghar ka khana.</p>
+      <button class="btn-primary" style="margin-top:16px" onclick="showPage('plans')">Join Our Family</button>
+    </div>
+  </div>
+
+  <div class="section section-cream">
+    <div class="section-inner" style="text-align:center">
+      <div class="section-label">OUR TEAM</div>
+      <h2 class="section-title">The Hands Behind Your Food</h2>
+      <div class="team-grid">
+        <div class="team-card"><div class="team-avatar">S</div><div class="team-name">Saumya Devi</div><div class="team-role">FOUNDER & HEAD CHEF</div><p style="font-size:13px;color:var(--text-light);margin-top:12px;line-height:1.6">25 years of cooking experience. Specializes in North Indian cuisine and traditional recipes.</p></div>
+        <div class="team-card"><div class="team-avatar">R</div><div class="team-name">Ravi Kumar</div><div class="team-role">OPERATIONS MANAGER</div><p style="font-size:13px;color:var(--text-light);margin-top:12px;line-height:1.6">Ensures your tiffin reaches on time, every time. 6 years with Saumya Tiffin.</p></div>
+        <div class="team-card"><div class="team-avatar">P</div><div class="team-name">Preethi Ma'am</div><div class="team-role">QUALITY CHEF</div><p style="font-size:13px;color:var(--text-light);margin-top:12px;line-height:1.6">FSSAI certified. Responsible for daily quality checks and hygiene standards.</p></div>
+        <div class="team-card"><div class="team-avatar">A</div><div class="team-name">Ankit Verma</div><div class="team-role">DELIVERY LEAD</div><p style="font-size:13px;color:var(--text-light);margin-top:12px;line-height:1.6">Leads our delivery team. 99.5% on-time delivery track record across 5 years.</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== CONTACT PAGE ===== -->
+<div class="page" id="page-contact">
+  <div class="section" style="background:linear-gradient(135deg,var(--brown),var(--brown-mid));padding:80px 24px 60px">
+    <div class="section-inner" style="text-align:center">
+      <h2 class="section-title" style="color:var(--cream)">Get In Touch 💬</h2>
+      <p class="section-sub" style="color:var(--cream-mid);margin:0 auto">We're here to help. Reach out via WhatsApp, call, or fill the form below.</p>
+    </div>
+  </div>
+  <div class="contact-layout">
+    <div>
+      <div style="color:var(--gold-dark);font-size:12px;font-weight:600;letter-spacing:3px;margin-bottom:12px">REACH US</div>
+      <h2 class="contact-info" style="font-family:'Playfair Display',serif;font-size:32px;color:var(--brown)">We'd Love to Hear From You</h2>
+      <div class="contact-detail"><div class="contact-icon">📍</div><div class="contact-text"><h4>Address</h4><p>123, Saumya Niwas, Civil Lines<br>Faizabad, Uttar Pradesh – 224001</p></div></div>
+      <div class="contact-detail"><div class="contact-icon">📞</div><div class="contact-text"><h4>Phone / WhatsApp</h4><p>+91 98765 43210<br>Mon–Sat: 7 AM – 9 PM</p></div></div>
+      <div class="contact-detail"><div class="contact-icon">📧</div><div class="contact-text"><h4>Email</h4><p>saumyatiffin@gmail.com<br>We reply within 2 hours</p></div></div>
+      <div class="contact-detail"><div class="contact-icon">🕐</div><div class="contact-text"><h4>Order Timings</h4><p>Lunch orders: Before 7:00 AM<br>Dinner orders: Before 7:00 PM</p></div></div>
+    </div>
+    <div>
+      <div class="checkout-panel">
+        <div class="checkout-title">Send Us a Message</div>
+        <div class="form-group"><label class="form-label">Your Name</label><input class="form-input" type="text" placeholder="Rahul Sharma"></div>
+        <div class="form-group"><label class="form-label">Phone Number</label><input class="form-input" type="tel" placeholder="+91 98765 43210"></div>
+        <div class="form-group"><label class="form-label">Email</label><input class="form-input" type="email" placeholder="you@email.com"></div>
+        <div class="form-group"><label class="form-label">Message</label><textarea class="form-input" rows="4" placeholder="I'd like to inquire about..." style="resize:vertical"></textarea></div>
+        <button class="btn-primary" style="width:100%" onclick="showToast('✅','Message sent! We will reply soon.')">Send Message</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== AUTH PAGE ===== -->
+<div class="page" id="page-auth">
+  <div class="auth-page">
+    <div class="auth-card">
+      <div class="auth-logo">
+        <div class="brand-big">🍛 Saumya Tiffin</div>
+        <div class="brand-sub">GHAR KA SWAD</div>
+      </div>
+      <div class="auth-tabs">
+        <button class="auth-tab active" id="loginTab" onclick="switchAuth('login')">Login</button>
+        <button class="auth-tab" id="signupTab" onclick="switchAuth('signup')">Sign Up</button>
+      </div>
+
+      <div id="loginForm">
+        <div class="form-group"><label class="form-label">Mobile Number</label><input class="form-input" type="tel" placeholder="+91 98765 43210"></div>
+        <div class="form-group"><label class="form-label">Password</label><input class="form-input" type="password" placeholder="Enter your password"></div>
+        <button class="btn-primary" style="width:100%;margin-top:8px" onclick="doLogin()">Login to Account</button>
+        <p style="text-align:center;margin-top:16px;font-size:13px;color:var(--text-light)">Forgot password? <span style="color:var(--gold-dark);cursor:pointer;font-weight:500">Reset via WhatsApp</span></p>
+      </div>
+
+      <div id="signupForm" style="display:none">
+        <div class="form-row">
+          <div class="form-group"><label class="form-label">First Name</label><input class="form-input" type="text" placeholder="Priya"></div>
+          <div class="form-group"><label class="form-label">Last Name</label><input class="form-input" type="text" placeholder="Sharma"></div>
+        </div>
+        <div class="form-group"><label class="form-label">Mobile Number</label><input class="form-input" type="tel" placeholder="+91 98765 43210"></div>
+        <div class="form-group"><label class="form-label">Email</label><input class="form-input" type="email" placeholder="you@email.com"></div>
+        <div class="form-group"><label class="form-label">Password</label><input class="form-input" type="password" placeholder="Min 8 characters"></div>
+        <div class="form-group"><label class="form-label">Delivery Address</label><textarea class="form-input" rows="2" placeholder="House no, Street, Area, City, Pincode" style="resize:none"></textarea></div>
+        <button class="btn-primary" style="width:100%;margin-top:8px" onclick="doSignup()">Create Account</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== DASHBOARD ===== -->
+<div class="page" id="page-dashboard">
+  <div class="dashboard">
+    <div class="dash-header">
+      <div class="dash-bg-pat"></div>
+      <div class="dash-header-inner">
+        <div class="dash-greeting">Namaste, Priya Ji! 🙏</div>
+        <div class="dash-sub">Welcome back to your Saumya Tiffin dashboard</div>
+      </div>
+    </div>
+    <div class="dash-body">
+      <div class="dash-cards">
+        <div class="dash-card"><div class="dash-card-label">ACTIVE PLAN</div><div class="dash-card-value" style="font-size:20px">Full Day</div><div class="dash-card-sub">✅ Active until June 30</div></div>
+        <div class="dash-card"><div class="dash-card-label">MEALS THIS MONTH</div><div class="dash-card-value">42</div><div class="dash-card-sub">🍱 18 remaining</div></div>
+        <div class="dash-card"><div class="dash-card-label">TOTAL SAVED</div><div class="dash-card-value">₹840</div><div class="dash-card-sub">💰 vs single orders</div></div>
+        <div class="dash-card"><div class="dash-card-label">NEXT DELIVERY</div><div class="dash-card-value" style="font-size:18px">Today 1 PM</div><div class="dash-card-sub">🚀 Dal Makhani Thali</div></div>
+      </div>
+      <div class="dash-grid">
+        <div class="dash-panel">
+          <div class="dash-panel-title">Recent Orders</div>
+          <div class="order-item"><div class="order-emoji">🫘</div><div class="order-info"><div class="order-name">Dal Makhani Thali</div><div class="order-date">Today, Lunch • ₹120</div></div><div class="order-status status-pending">Pending</div></div>
+          <div class="order-item"><div class="order-emoji">🥘</div><div class="order-info"><div class="order-name">Rajma Chawal Thali</div><div class="order-date">Yesterday, Lunch • ₹110</div></div><div class="order-status status-delivered">Delivered</div></div>
+          <div class="order-item"><div class="order-emoji">🥗</div><div class="order-info"><div class="order-name">Kadai Paneer Thali</div><div class="order-date">Yesterday, Dinner • ₹150</div></div><div class="order-status status-delivered">Delivered</div></div>
+          <div class="order-item"><div class="order-emoji">🍲</div><div class="order-info"><div class="order-name">Sambar Rice Thali</div><div class="order-date">May 25, Lunch • ₹100</div></div><div class="order-status status-delivered">Delivered</div></div>
+          <div class="order-item"><div class="order-emoji">🌿</div><div class="order-info"><div class="order-name">Palak Paneer Thali</div><div class="order-date">May 24, Dinner • ₹140</div></div><div class="order-status status-delivered">Delivered</div></div>
+        </div>
+        <div>
+          <div class="dash-panel">
+            <div class="dash-panel-title">My Subscription</div>
+            <div class="sub-info">
+              <div class="sub-name">Full Day Meal Plan ⭐</div>
+              <div class="sub-detail">
+                ✅ Status: Active<br>
+                📅 Renews: June 30, 2026<br>
+                🍱 Lunch + Dinner Daily<br>
+                📦 60 meals/month<br>
+                💳 ₹2,999/month
+              </div>
+            </div>
+            <div class="sub-actions">
+              <div class="sub-action-btn" onclick="showToast('⏸️','Subscription paused for today!')">⏸ Pause</div>
+              <div class="sub-action-btn" onclick="showToast('▶️','Subscription resumed!')">▶ Resume</div>
+              <div class="sub-action-btn" onclick="showPage('plans')">🔄 Upgrade</div>
+              <div class="sub-action-btn" style="color:#EB5757;border-color:rgba(235,87,87,0.4)" onclick="showToast('❌','Cancellation request sent.')">Cancel</div>
+            </div>
+            <div style="margin-top:20px;padding:16px;background:var(--cream);border-radius:var(--radius)">
+              <div style="font-size:13px;font-weight:500;color:var(--brown);margin-bottom:12px">Saved Addresses</div>
+              <div style="font-size:13px;color:var(--text-mid);line-height:1.8">🏠 <strong>Home:</strong> 45, Shivaji Nagar, Faizabad – 224001<br>🏢 <strong>Office:</strong> A-12, Civil Lines, Faizabad – 224001</div>
+              <button style="background:none;border:1px solid var(--cream-mid);color:var(--text-mid);font-size:12px;padding:6px 14px;border-radius:50px;cursor:pointer;margin-top:10px;font-family:'DM Sans',sans-serif" onclick="showToast('📍','Address management coming soon!')">+ Add Address</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== CHECKOUT PAGE ===== -->
+<div class="page" id="page-checkout">
+  <div style="padding-top:88px">
+    <div class="checkout-layout">
+      <div>
+        <div class="checkout-panel" style="margin-bottom:24px">
+          <div class="checkout-title">Delivery Details</div>
+          <div class="form-group"><label class="form-label">Full Name</label><input class="form-input" type="text" placeholder="Priya Sharma"></div>
+          <div class="form-group"><label class="form-label">Mobile Number</label><input class="form-input" type="tel" placeholder="+91 98765 43210"></div>
+          <div class="form-group"><label class="form-label">Delivery Address</label><textarea class="form-input" rows="3" placeholder="House no, Street, Area, Pincode" style="resize:none"></textarea></div>
+          <div class="form-row">
+            <div class="form-group"><label class="form-label">City</label><input class="form-input" type="text" placeholder="Faizabad"></div>
+            <div class="form-group"><label class="form-label">Pincode</label><input class="form-input" type="text" placeholder="224001"></div>
+          </div>
+          <div class="form-group"><label class="form-label">Delivery Type</label>
+            <select class="form-select">
+              <option>Lunch (Delivery by 1:00 PM)</option>
+              <option>Dinner (Delivery by 7:30 PM)</option>
+              <option>Both – Lunch + Dinner</option>
+            </select>
+          </div>
+          <div class="form-group"><label class="form-label">Special Instructions</label><input class="form-input" type="text" placeholder="Less spice, no onion, etc."></div>
+        </div>
+        <div class="checkout-panel">
+          <div class="checkout-title">Payment Method</div>
+          <div class="payment-options">
+            <div class="payment-opt selected" onclick="selectPayment(this)">
+              <input type="radio" name="pay" checked>
+              <div><div style="font-size:14px;font-weight:500;color:var(--text-dark)">💳 Razorpay (UPI, Cards, Net Banking)</div><div style="font-size:12px;color:var(--text-light);margin-top:2px">Secure payment via Razorpay</div></div>
+            </div>
+            <div class="payment-opt" onclick="selectPayment(this)">
+              <input type="radio" name="pay">
+              <div><div style="font-size:14px;font-weight:500;color:var(--text-dark)">📱 Google Pay / PhonePe</div><div style="font-size:12px;color:var(--text-light);margin-top:2px">Pay via UPI apps</div></div>
+            </div>
+            <div class="payment-opt" onclick="selectPayment(this)">
+              <input type="radio" name="pay">
+              <div><div style="font-size:14px;font-weight:500;color:var(--text-dark)">💵 Cash on Delivery</div><div style="font-size:12px;color:var(--text-light);margin-top:2px">Pay when your tiffin arrives</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="checkout-panel" style="position:sticky;top:100px">
+          <div class="checkout-title">Order Summary</div>
+          <div id="cartItems">
+            <div class="order-summary-item"><span>Dal Makhani Thali × 1</span><span>₹120</span></div>
+            <div class="order-summary-item"><span>Mixed Veg Thali × 1</span><span>₹130</span></div>
+          </div>
+          <div class="order-summary-item"><span style="color:var(--text-light)">Delivery Charge</span><span style="color:#27AE60">FREE</span></div>
+          <div class="order-summary-item"><span style="color:var(--text-light)">Taxes (5% GST)</span><span>₹12.50</span></div>
+          <div class="order-total"><span>Total Amount</span><span style="color:var(--orange)">₹262.50</span></div>
+          <button class="btn-primary" style="width:100%;margin-top:20px;font-size:16px;padding:16px" onclick="placeOrder()">🔒 Pay ₹262.50</button>
+          <p style="text-align:center;font-size:12px;color:var(--text-light);margin-top:12px">🔐 Secured by Razorpay • SSL Encrypted</p>
+          <div style="border-top:1px solid var(--cream-dark);margin-top:20px;padding-top:16px">
+            <div id="cartCutoffNote" style="text-align:center;font-size:13px;padding:10px;border-radius:8px;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== ADMIN PANEL ===== -->
+<div class="page" id="page-admin">
+  <div class="admin-layout">
+    <div class="admin-sidebar">
+      <div style="padding:20px 24px 24px;border-bottom:1px solid rgba(200,151,58,0.2);margin-bottom:12px">
+        <div style="font-family:'Playfair Display',serif;color:var(--gold-light);font-size:16px;font-weight:600">Admin Panel</div>
+        <div style="color:var(--cream-mid);font-size:12px;margin-top:2px">Saumya Tiffin Service</div>
+      </div>
+      <div class="admin-nav-item active" onclick="switchAdmin('dashboard',this)"><span class="admin-nav-icon">📊</span> Dashboard</div>
+      <div class="admin-nav-item" onclick="switchAdmin('orders',this)"><span class="admin-nav-icon">📦</span> Today's Orders</div>
+      <div class="admin-nav-item" onclick="switchAdmin('menu',this)"><span class="admin-nav-icon">🍱</span> Manage Menu</div>
+      <div class="admin-nav-item" onclick="switchAdmin('users',this)"><span class="admin-nav-icon">👥</span> Users</div>
+      <div class="admin-nav-item" onclick="switchAdmin('subscriptions',this)"><span class="admin-nav-icon">🔄</span> Subscriptions</div>
+      <div class="admin-nav-item" onclick="switchAdmin('payments',this)"><span class="admin-nav-icon">💳</span> Payments</div>
+      <div class="admin-nav-item" onclick="switchAdmin('settings',this)"><span class="admin-nav-icon">⚙️</span> Settings</div>
+    </div>
+    <div class="admin-main">
+      <!-- DASHBOARD VIEW -->
+      <div id="admin-dashboard">
+        <div class="admin-title">Dashboard Overview</div>
+        <div class="admin-stats">
+          <div class="admin-stat"><div class="admin-stat-num">248</div><div class="admin-stat-label">Active Subscribers</div></div>
+          <div class="admin-stat"><div class="admin-stat-num">186</div><div class="admin-stat-label">Orders Today</div></div>
+          <div class="admin-stat"><div class="admin-stat-num">₹22,400</div><div class="admin-stat-label">Today's Revenue</div></div>
+          <div class="admin-stat"><div class="admin-stat-num">4.9⭐</div><div class="admin-stat-label">Average Rating</div></div>
+        </div>
+        <div class="admin-table">
+          <div class="admin-table-header"><div>Customer</div><div>Plan</div><div>Status</div><div>Amount</div><div>Actions</div></div>
+          <div class="admin-table-row"><div style="font-weight:500">Priya Sharma</div><div>Full Day</div><div><span class="badge badge-active">Active</span></div><div>₹2,999</div><div><button class="action-dot edit" onclick="showToast('✏️','Editing user...')">✏️</button><button class="action-dot del" onclick="showToast('🗑️','User removed!')">🗑️</button></div></div>
+          <div class="admin-table-row"><div style="font-weight:500">Rahul Mishra</div><div>Lunch</div><div><span class="badge badge-active">Active</span></div><div>₹1,799</div><div><button class="action-dot edit">✏️</button><button class="action-dot del">🗑️</button></div></div>
+          <div class="admin-table-row"><div style="font-weight:500">Anita Verma</div><div>Family</div><div><span class="badge badge-paused">Paused</span></div><div>₹4,999</div><div><button class="action-dot edit">✏️</button><button class="action-dot del">🗑️</button></div></div>
+          <div class="admin-table-row"><div style="font-weight:500">Suresh Gupta</div><div>Dinner</div><div><span class="badge badge-active">Active</span></div><div>₹1,699</div><div><button class="action-dot edit">✏️</button><button class="action-dot del">🗑️</button></div></div>
+          <div class="admin-table-row"><div style="font-weight:500">Kavya Singh</div><div>Full Day</div><div><span class="badge badge-gold">Trial</span></div><div>₹2,999</div><div><button class="action-dot edit">✏️</button><button class="action-dot del">🗑️</button></div></div>
+        </div>
+      </div>
+      <!-- ORDERS VIEW -->
+      <div id="admin-orders" style="display:none">
+        <div class="admin-title">Today's Orders</div>
+        <div style="display:flex;gap:12px;margin-bottom:24px;flex-wrap:wrap">
+          <select class="form-select" style="width:auto;padding:8px 16px"><option>All Orders</option><option>Lunch</option><option>Dinner</option></select>
+          <select class="form-select" style="width:auto;padding:8px 16px"><option>All Status</option><option>Pending</option><option>Delivered</option></select>
+        </div>
+        <div class="admin-table">
+          <div class="admin-table-header"><div>Customer & Address</div><div>Meal</div><div>Type</div><div>Status</div><div>Actions</div></div>
+          <div class="admin-table-row"><div><div style="font-weight:500">Priya Sharma</div><div style="font-size:11px;color:var(--text-light)">45, Shivaji Nagar</div></div><div>Dal Makhani</div><div>Lunch</div><div><span class="badge badge-paused">Pending</span></div><div><button class="action-dot edit" onclick="showToast('✅','Marked as delivered!')">✅</button></div></div>
+          <div class="admin-table-row"><div><div style="font-weight:500">Rahul Mishra</div><div style="font-size:11px;color:var(--text-light)">12, Civil Lines</div></div><div>Rajma Chawal</div><div>Lunch</div><div><span class="badge badge-active">Delivered</span></div><div><button class="action-dot edit">✅</button></div></div>
+          <div class="admin-table-row"><div><div style="font-weight:500">Suresh Gupta</div><div style="font-size:11px;color:var(--text-light)">B-7, Adarsh Colony</div></div><div>Chole Bhature</div><div>Dinner</div><div><span class="badge badge-paused">Pending</span></div><div><button class="action-dot edit" onclick="showToast('✅','Marked as delivered!')">✅</button></div></div>
+        </div>
+      </div>
+      <!-- MENU VIEW -->
+      <div id="admin-menu" style="display:none">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px">
+          <div class="admin-title" style="margin-bottom:0">Manage Menu</div>
+          <button class="btn-primary" style="font-size:13px;padding:10px 20px" onclick="showToast('➕','Add dish modal coming soon!')">+ Add Dish</button>
+        </div>
+        <div class="admin-table">
+          <div class="admin-table-header"><div>Dish Name</div><div>Category</div><div>Price</div><div>Status</div><div>Actions</div></div>
+          <div class="admin-table-row"><div style="font-weight:500">🫘 Dal Makhani Thali</div><div>Lunch</div><div>₹120</div><div><span class="badge badge-active">Active</span></div><div><button class="action-dot edit" onclick="showToast('✏️','Edit mode enabled')">✏️</button><button class="action-dot del" onclick="showToast('🔴','Dish disabled')">⛔</button></div></div>
+          <div class="admin-table-row"><div style="font-weight:500">🥘 Rajma Chawal</div><div>Lunch</div><div>₹110</div><div><span class="badge badge-active">Active</span></div><div><button class="action-dot edit">✏️</button><button class="action-dot del">⛔</button></div></div>
+          <div class="admin-table-row"><div style="font-weight:500">🌿 Palak Paneer</div><div>Lunch</div><div>₹140</div><div><span class="badge badge-active">Active</span></div><div><button class="action-dot edit">✏️</button><button class="action-dot del">⛔</button></div></div>
+          <div class="admin-table-row"><div style="font-weight:500">🍛 Kadai Paneer</div><div>Dinner</div><div>₹150</div><div><span class="badge badge-active">Active</span></div><div><button class="action-dot edit">✏️</button><button class="action-dot del">⛔</button></div></div>
+          <div class="admin-table-row"><div style="font-weight:500">🫙 Chole Bhature</div><div>Dinner</div><div>₹120</div><div><span class="badge badge-paused">Disabled</span></div><div><button class="action-dot edit">✏️</button><button class="action-dot del">⛔</button></div></div>
+        </div>
+      </div>
+      <!-- SETTINGS VIEW -->
+      <div id="admin-settings" style="display:none">
+        <div class="admin-title">System Settings</div>
+        <div class="checkout-panel">
+          <div class="checkout-title">Order Cutoff Timings</div>
+          <div class="form-row">
+            <div class="form-group"><label class="form-label">Lunch Cutoff Time</label><input class="form-input" type="time" value="07:00"></div>
+            <div class="form-group"><label class="form-label">Dinner Cutoff Time</label><input class="form-input" type="time" value="19:00"></div>
+          </div>
+          <div class="form-group"><label class="form-label">Delivery Area Pincodes</label><input class="form-input" type="text" value="224001, 224002, 224003, 224120"></div>
+          <div class="form-group"><label class="form-label">WhatsApp Number</label><input class="form-input" type="tel" value="+91 98765 43210"></div>
+          <button class="btn-primary" onclick="showToast('✅','Settings saved successfully!')">Save Settings</button>
+        </div>
+      </div>
+      <div id="admin-users" style="display:none"><div class="admin-title">User Management</div><p style="color:var(--text-light)">User management panel — same table as dashboard with extended controls.</p></div>
+      <div id="admin-subscriptions" style="display:none"><div class="admin-title">Subscriptions</div><p style="color:var(--text-light)">All active, paused, and cancelled subscriptions overview.</p></div>
+      <div id="admin-payments" style="display:none"><div class="admin-title">Payment Records</div><p style="color:var(--text-light)">Razorpay transaction logs, refunds, and monthly revenue reports.</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer id="mainFooter">
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">🍛 Saumya Tiffin Service</div>
+        <div class="footer-desc">Authentic home-style Indian tiffin delivered to your doorstep daily. Made with love, pure ingredients, and the warmth of a mother's kitchen since 2019.</div>
+      </div>
+      <div>
+        <h4>Quick Links</h4>
+        <ul class="footer-links">
+          <li><a onclick="showPage('home')">Home</a></li>
+          <li><a onclick="showPage('menu')">Today's Menu</a></li>
+          <li><a onclick="showPage('plans')">Subscription Plans</a></li>
+          <li><a onclick="showPage('about')">About Us</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Account</h4>
+        <ul class="footer-links">
+          <li><a onclick="showPage('auth')">Login / Sign Up</a></li>
+          <li><a onclick="showPage('dashboard')">My Dashboard</a></li>
+          <li><a onclick="showPage('checkout')">Checkout</a></li>
+          <li><a onclick="showPage('contact')">Support</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact Us</h4>
+        <div style="font-size:13px;line-height:2">
+          📞 +91 98765 43210<br>
+          📧 saumyatiffin@gmail.com<br>
+          📍 Faizabad, UP – 224001<br>
+          🕐 7 AM – 9 PM Daily
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">© 2026 Saumya Tiffin Service. All rights reserved. Made with ❤️ in Faizabad, UP</div>
+      <div style="display:flex;gap:16px">
+        <span class="footer-link">Privacy Policy</span>
+        <span class="footer-link">Terms of Service</span>
+        <span class="footer-link">FSSAI: 12719001000123</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ---- PAGE ROUTING ----
+const NO_FOOTER_PAGES = ['admin','auth','dashboard'];
+function showPage(page){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page-'+page).classList.add('active');
+  document.querySelectorAll('.nav-link').forEach(l=>l.classList.remove('active'));
+  const navMap={home:0,menu:1,plans:2,about:3,contact:4,dashboard:5,admin:6};
+  const navLinks=document.querySelectorAll('.nav-link');
+  if(navMap[page]!==undefined) navLinks[navMap[page]].classList.add('active');
+  const footer=document.getElementById('mainFooter');
+  footer.style.display=NO_FOOTER_PAGES.includes(page)?'none':'block';
+  window.scrollTo(0,0);
+  document.getElementById('navLinks').classList.remove('open');
+  updateCutoffBanners();
+}
+
+// ---- HAMBURGER ----
+function toggleNav(){
+  document.getElementById('navLinks').classList.toggle('open');
+}
+
+// ---- ORDER CUTOFF LOGIC ----
+function getOrderStatus(){
+  const now=new Date();
+  const h=now.getHours(),m=now.getMinutes();
+  const totalMins=h*60+m;
+  const lunchCutoff=7*60; // 7:00 AM
+  const dinnerCutoff=19*60; // 7:00 PM
+  const timeStr=now.toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit',hour12:true});
+  if(totalMins<lunchCutoff){
+    return{lunch:{open:true,msg:`Order now! Lunch cutoff at 7:00 AM. Current time: ${timeStr}`},dinner:{open:true,msg:`Dinner orders open. Cutoff at 7:00 PM. Current time: ${timeStr}`}};
+  }else if(totalMins<dinnerCutoff){
+    return{lunch:{open:false,msg:`Lunch order window closed. Next lunch order for tomorrow. Current time: ${timeStr}`},dinner:{open:true,msg:`Dinner orders open! Cutoff at 7:00 PM. Current time: ${timeStr}`}};
+  }else{
+    return{lunch:{open:false,msg:`Today's order window is closed. Please order for tomorrow.`},dinner:{open:false,msg:`Today's order window is closed. Please order for tomorrow.`}};
+  }
+}
+
+function updateCutoffBanners(){
+  const st=getOrderStatus();
+  // Home banner
+  const title=document.getElementById('cutoffTitle');
+  const desc=document.getElementById('cutoffDesc');
+  const badge=document.getElementById('cutoffBadge');
+  if(title){
+    title.textContent=st.lunch.open?'🌅 Lunch Orders: OPEN':'🌅 Lunch Orders: CLOSED';
+    desc.textContent=st.lunch.open?st.lunch.msg:st.lunch.msg;
+    badge.textContent=st.lunch.open?'✅ ORDER NOW':'❌ CLOSED';
+    badge.className='cutoff-status '+(st.lunch.open?'cutoff-open':'cutoff-closed');
+  }
+  // Menu banner
+  const t2=document.getElementById('cutoffTitle2');
+  if(t2){
+    const isAnyOpen=st.lunch.open||st.dinner.open;
+    t2.textContent=isAnyOpen?'✅ Orders are currently OPEN':'❌ Order Window Closed';
+    document.getElementById('cutoffDesc2').textContent=st.dinner.open?st.dinner.msg:'Today\'s order window is closed. Please order for tomorrow.';
+    document.getElementById('cutoffBadge2').textContent=isAnyOpen?'ORDERING OPEN':'CLOSED';
+    document.getElementById('cutoffBadge2').className='cutoff-status '+(isAnyOpen?'cutoff-open':'cutoff-closed');
+  }
+  // Checkout note
+  const note=document.getElementById('cartCutoffNote');
+  if(note){
+    if(!st.lunch.open&&!st.dinner.open){
+      note.style.background='rgba(235,87,87,0.1)';note.style.color='#EB5757';
+      note.textContent='⚠️ Today\'s order window is closed. Your order will be scheduled for tomorrow.';
+    }else if(!st.lunch.open){
+      note.style.background='rgba(242,153,74,0.1)';note.style.color='#F2994A';
+      note.textContent='ℹ️ Lunch window closed. Dinner orders still open until 7:00 PM.';
+    }else{
+      note.style.background='rgba(100,180,100,0.1)';note.style.color='#27AE60';
+      note.textContent='✅ Order window is open! Your tiffin will be delivered today.';
+    }
+  }
+}
+
+// ---- TOAST ----
+function showToast(icon,msg,dur=3000){
+  const t=document.getElementById('toast');
+  document.getElementById('toastIcon').textContent=icon;
+  document.getElementById('toastMsg').textContent=msg;
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),dur);
+}
+
+// ---- CART ----
+let cart=[];
+function addToCart(name,price){
+  const st=getOrderStatus();
+  const now=new Date();
+  const h=now.getHours();
+  // Determine if it's a lunch or dinner item (simple heuristic)
+  const isLunchTime=h<13;
+  if(!st.lunch.open&&!st.dinner.open){
+    showToast('⚠️','Order window closed! Order scheduled for tomorrow.');
+    cart.push({name,price});
+  }else{
+    cart.push({name,price});
+    showToast('✅',`${name} added to cart!`);
+  }
+}
+
+function subscribePlan(name,price){
+  showToast('🎉',`Subscribing to ${name}... Redirecting to payment!`);
+  setTimeout(()=>showPage('checkout'),1200);
+}
+
+// ---- PAYMENT ----
+function selectPayment(el){
+  document.querySelectorAll('.payment-opt').forEach(e=>e.classList.remove('selected'));
+  el.classList.add('selected');
+  el.querySelector('input[type=radio]').checked=true;
+}
+
+function placeOrder(){
+  const st=getOrderStatus();
+  if(!st.lunch.open&&!st.dinner.open){
+    showToast('📅','Order window closed. Order booked for tomorrow!');
+  }else{
+    showToast('🎉','Order placed! Payment processing via Razorpay...');
+    setTimeout(()=>showToast('✅','Payment successful! Your tiffin is confirmed.'),2500);
+    setTimeout(()=>showPage('dashboard'),3500);
+  }
+}
+
+// ---- AUTH ----
+function switchAuth(tab){
+  document.getElementById('loginForm').style.display=tab==='login'?'block':'none';
+  document.getElementById('signupForm').style.display=tab==='signup'?'block':'none';
+  document.getElementById('loginTab').classList.toggle('active',tab==='login');
+  document.getElementById('signupTab').classList.toggle('active',tab==='signup');
+}
+function doLogin(){showToast('✅','Login successful! Welcome back.');setTimeout(()=>showPage('dashboard'),1200);}
+function doSignup(){showToast('🎉','Account created! Welcome to Saumya Tiffin.');setTimeout(()=>showPage('dashboard'),1200);}
+
+// ---- ADMIN PANEL ----
+function switchAdmin(section,el){
+  document.querySelectorAll('[id^=admin-]').forEach(e=>e.style.display='none');
+  document.getElementById('admin-'+section).style.display='block';
+  document.querySelectorAll('.admin-nav-item').forEach(e=>e.classList.remove('active'));
+  el.classList.add('active');
+}
+
+// ---- FAQ ----
+function toggleFaq(el){el.classList.toggle('open');}
+
+// ---- INIT ----
+updateCutoffBanners();
+setInterval(updateCutoffBanners,60000);
+showPage('home');
+</script>
+</body>
+</html>
